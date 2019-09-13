@@ -2,11 +2,76 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Modak&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css"
+    />
+    <link rel="stylesheet" href="mynote.css" />
     <title>My Web Page</title>
   </head>
 
   <body>
     <!-- This is a comment -->
-    <h1>Hello World!</h1>
+    <div class="card  ">
+      <div class="card-body">
+        <h1 class="mynote-title">Taking note...</h1>
+        <div class="mynote-body" id="note" contenteditable></div>
+        <div class="btn-pos">
+          <button class="btn-success" onclick="saveData()">Save</button>
+          <button class="btn-danger" onclick="clearData()">Clear</button>
+        </div>
+      </div>
+    </div>
   </body>
+  <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
+  <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+  <script type="text/javascript">
+    const fs = new Filer.FileSystem();
+    hotkeys.filter = function(event) {
+      var tagName = (event.target || event.srcElement).tagName;
+      return !(
+        tagName.isContentEditable ||
+        tagName == "INPUT" ||
+        tagName == "SELECT" ||
+        tagName == "TEXTAREA"
+      );
+    };
+    window.addEventListener("DOMContentLoaded", event => {
+      console.log("DOM fully loaded and parsed");
+      // Read UTF8 text file
+      fs.readFile("/note", "utf8", function(err, data) {
+        if (err) {
+          throw err;
+        } else {
+          if (data) {
+            document.querySelector("#note").innerHTML = data;
+          } else {
+            document.querySelector("#note").innerHTML =
+              "Welcome to my notepad!";
+          }
+        }
+      });
+    });
+
+    hotkeys("ctrl+s", function() {
+      saveData();
+    });
+    // Write UTF8 text file
+    function saveData() {
+      fs.writeFile("/note", document.querySelector("#note").innerHTML, function(
+        err
+      ) {
+        if (err) throw err;
+        else alert("data saved!");
+      });
+    }
+
+    function clearData() {
+      document.querySelector("#note").innerHTML = null;
+    }
+  </script>
 </html>
