@@ -1,0 +1,24 @@
+.card {
+  max-width: 80%;
+  padding: 0 3rem 3rem 3rem;
+  background-color: #ffce44;
+  border-radius: 3rem;
+  margin: 3rem;
+}
+.mynote-title {
+  color: red;
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.mynote-body {
+  min-height: 20rem;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.btn-pos {
+  text-align: right;
+  padding: 2rem 0 0 0;
+}
