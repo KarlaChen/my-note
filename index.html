@@ -21,8 +21,8 @@
         <h1 class="mynote-title">Taking note...</h1>
         <div class="mynote-body" id="note" contenteditable></div>
         <div class="btn-pos">
-          <button class="btn-success" onclick="saveData()">Save</button>
-          <button class="btn-danger" onclick="clearData()">Clear</button>
+          <button class="btn-success" onclick=saveData()>Save</button>
+          <button class="btn-danger" onclick=clearData()>Clear</button>
         </div>
       </div>
     </div>
@@ -62,16 +62,25 @@
     });
     // Write UTF8 text file
     function saveData() {
-      fs.writeFile("/note", document.querySelector("#note").innerHTML, function(
-        err
-      ) {
+      var str="Welcome to my notepad!";
+      fs.writeFile("/note", document.querySelector("#note").innerHTML, function(err) 
+        {
         if (err) throw err;
-        else alert("data saved!");
+
+      if(document.querySelector("#note").innerHTML == ""||document.querySelector("#note").innerHTML == str||str.indexOf(document.querySelector("#note").innerHTML)>=0) 
+      
+        {
+          alert("No data to be saved!");
+        document.querySelector("#note").innerHTML=str;
+        }
+
+        else 
+        alert("Data saved!");
       });
     }
 
     function clearData() {
-      document.querySelector("#note").innerHTML = null;
+      document.querySelector("#note").innerHTML = "";
     }
   </script>
 </html>
