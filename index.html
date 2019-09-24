@@ -66,16 +66,16 @@
       fs.writeFile("/note", document.querySelector("#note").innerHTML, function(err) 
         {
         if (err) throw err;
-
-      if(document.querySelector("#note").innerHTML == ""||document.querySelector("#note").innerHTML == str||str.indexOf(document.querySelector("#note").innerHTML)>=0) 
+      else{
+        if(document.querySelector("#note").innerHTML == ""||document.querySelector("#note").innerHTML == str) 
       
         {
           alert("No data to be saved!");
-        document.querySelector("#note").innerHTML=str;
-        }
-
+          document.querySelector("#note").innerHTML=str;
+        } 
         else 
         alert("Data saved!");
+      }
       });
     }
 
